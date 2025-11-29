@@ -79,3 +79,17 @@ export type TeacherCode = string;
 export type TeacherName = string;
 export type TeacherMap = Record<TeacherCode, TeacherName>;
 export type ReversedTeacherMap = Record<TeacherName, TeacherCode>;
+
+export type Days = {
+    class?: string[],
+    group?: string[],
+    subject?: string,
+    room?: string,
+    classGroup?: string
+}
+export type Rasp = {
+    [days: number]: Days
+}
+export type Day = {
+    [key: number]: | 'пн' | 'вт' | 'ср' | 'чт' | 'пт' | 'сб' | 'вс'
+}

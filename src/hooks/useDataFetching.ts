@@ -2,12 +2,13 @@ import { useCallback, useEffect, useState } from "react"
 import { testApi } from "../api/api"
 import type { FullNames, ReversedTeacherMap, TeacherMap } from "../type/rasp.type";
 
+type defaultT = {
+  [code: string]: string
+}
 
+// Принимает объек {key: value} возвращает => {value: key} 
 export const reversed = (data: object) => {
-  const revers = Object.fromEntries (
-            Object.entries(data).map(([key,value]) => [value, key])
-         )
-  return revers
+  return Object.fromEntries(Object.entries(data).map(([key,value]) => [value, key]))
 }
 
 
@@ -17,10 +18,14 @@ export const dataFetching = () => {
       const [isLoading, setIsLoading] = useState<boolean>(true)
       const [error, setError] = useState<string | null>(null)
       
-      const [period, setPeriod] = useState<string>('105') //период обучения
-      const [teacherSchedule, setTeacherSchedule] = useState<any>(null) //расписание учителей
-      const [teacher, setTeacher] = useState<TeacherMap | null>(null) //учителя
+      const [period, setPeriod] = useState<string>('105') // период обучения
+      const [teacherSchedule, setTeacherSchedule] = useState<any>(null) // расписание учителей
+      const [teacher, setTeacher] = useState<TeacherMap | null>(null) // учителя
       const [reversedTeacher, setReversedTeacher] = useState<ReversedTeacherMap>({'x': '01'}) // имя значения учителей
+      const [classes, setClasses] = useState<defaultT>({'001': '1а'}) // классы
+      const [classGroup, setClassGroup] = useState<defaultT>({'0': 'Группа 1'}) // группы классов
+      const [room, setRoom] = useState<defaultT>({'000': "1к 504"}) // кабинеты
+      const [subject, setSubject] = useState<defaultT>({'000': " виртуальная реальность"}) // название предметов
       
       useEffect(() => {
         async function getApi() {
@@ -34,7 +39,10 @@ export const dataFetching = () => {
             setPeriod(firstPeriod)
             setTeacherSchedule(response.TEACH_SCHEDULE)
             setTeacher(response.TEACHERS)
-            
+            setClasses(response.CLASSES)
+            setClassGroup(response.CLASSGROUPS)
+            setRoom(response.ROOMS)
+            setSubject(response.SUBJECTS)
             // Сразу создаем перевернутый словарь учителей
             response.TEACHERS ? setReversedTeacher(reversed(response.TEACHERS)) : null;
 
@@ -54,6 +62,10 @@ export const dataFetching = () => {
         return reversedTeacher ? reversedTeacher[name] : null
     }, [reversedTeacher])
 
+    const getRoom = useCallback(() => {
+      return 0
+    }, []);
+
     return {
         data,
         isLoading,
@@ -63,5 +75,9 @@ export const dataFetching = () => {
         teacherSchedule,
         teacher,
         getTeacherCode,
+        classes,
+        room,
+        subject,
+        classGroup
     }
 }

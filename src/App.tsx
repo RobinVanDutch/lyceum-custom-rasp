@@ -1,10 +1,13 @@
 import './App.css'
+import { RaspBlock } from './components/raspBlock/RaspBlock';
 import { dataFetching } from './hooks/useDataFetching';
 
 function App() {
   const dataF = dataFetching();
 
   console.log(dataF.getTeacherCode('Авдюшева М.Н'));
+  const testCode = dataF.getTeacherCode('Авдюшева М.Н')
+  console.log(dataF.data);
   
   return (
     <div>
@@ -21,7 +24,7 @@ function App() {
           <div className="rasp">
             Расписание учителей:
             <div className="teacher">
-              {
+              {/* {
                 dataF.reversedTeacher ?
                   Object.entries(dataF.reversedTeacher).map((value, index) => 
                     <div className="tex" style={{display: 'flex'}}>
@@ -34,7 +37,9 @@ function App() {
                     </div>
                   )
                 : <div>Нету</div>
-              }
+              } */}
+              <RaspBlock raspData={dataF.teacherSchedule[dataF.period]['042']} />
+              
             </div>
           </div>
         </div>
