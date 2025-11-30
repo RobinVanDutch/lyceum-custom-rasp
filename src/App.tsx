@@ -6,7 +6,6 @@ function App() {
   const dataF = dataFetching();
 
   console.log(dataF.getTeacherCode('Авдюшева М.Н'));
-  const testCode = dataF.getTeacherCode('Авдюшева М.Н')
   console.log(dataF.data);
   
   return (
@@ -38,7 +37,7 @@ function App() {
                   )
                 : <div>Нету</div>
               } */}
-              <RaspBlock raspData={dataF.teacherSchedule[dataF.period]['042']} />
+              <RaspBlock raspData={dataF.teacherSchedule[dataF.period]['014']} teacher={dataF.teacher['014']} />
               
             </div>
           </div>
