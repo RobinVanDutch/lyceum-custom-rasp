@@ -5,6 +5,9 @@ import type { FullNames, ReversedTeacherMap, TeacherMap } from "../type/rasp.typ
 type defaultT = {
   [code: string]: string
 }
+type default2T = {
+  [code: string]: string[]
+}
 
 // Принимает объек {key: value} возвращает => {value: key} 
 export const reversed = (data: object) => {
@@ -26,6 +29,7 @@ export const dataFetching = () => {
       const [classGroup, setClassGroup] = useState<defaultT>({'0': 'Группа 1'}) // группы классов
       const [room, setRoom] = useState<defaultT>({'000': "1к 504"}) // кабинеты
       const [subject, setSubject] = useState<defaultT>({'000': " виртуальная реальность"}) // название предметов
+      const [leasonTime, setLeasonTime] = useState<default2T>({'1': ['8:15', '9:00']}) //Время каждого урока
       
       useEffect(() => {
         async function getApi() {
@@ -43,6 +47,7 @@ export const dataFetching = () => {
             setClassGroup(response.CLASSGROUPS)
             setRoom(response.ROOMS)
             setSubject(response.SUBJECTS)
+            setLeasonTime(response.LESSON_TIMES)
             // Сразу создаем перевернутый словарь учителей
             response.TEACHERS ? setReversedTeacher(reversed(response.TEACHERS)) : null;
 
@@ -78,6 +83,7 @@ export const dataFetching = () => {
         classes,
         room,
         subject,
-        classGroup
+        classGroup,
+        leasonTime
     }
 }

@@ -29,6 +29,11 @@ export const UseWeekParse = (rasp: Rasp) => {
         return leason;
     }, [rasp])
 
+    // Возравщает массив с временнем уроков
+    const getLeasonTime = useCallback( () => {
+        return api.leasonTime
+    }, [api])
+
     // Возвращает по коду => номер кабинета
     const getClassRoom = useCallback((room: string) => {
         return api.room[room]
@@ -43,7 +48,8 @@ export const UseWeekParse = (rasp: Rasp) => {
         getDay,
         getLeason,
         getClassRoom,
-        getClasses
+        getClasses,
+        getLeasonTime
 
     }
 }
