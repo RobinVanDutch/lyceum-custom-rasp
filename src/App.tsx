@@ -23,20 +23,7 @@ function App() {
           <div className="rasp">
             Расписание учителей:
             <div className="teacher">
-              {/* {
-                dataF.reversedTeacher ?
-                  Object.entries(dataF.reversedTeacher).map((value, index) => 
-                    <div className="tex" style={{display: 'flex'}}>
-                      {index}. {value[0]}
-                      <div className="raspes">
-                        {
-                          String(dataF.teacherSchedule[dataF.period][`${value[1]}`])
-                        }
-                      </div>
-                    </div>
-                  )
-                : <div>Нету</div>
-              } */}
+        
               <RaspBlock raspData={dataF.teacherSchedule[dataF.period]['014']} teacher={dataF.teacher['014']} />
               
             </div>

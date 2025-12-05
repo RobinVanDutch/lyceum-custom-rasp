@@ -2,6 +2,7 @@ import { useMemo, type FC } from 'react'
 import { UseWeekParse } from '../../hooks/useWeekParse'
 import type { Days } from '../../type/rasp.type'
 import cls from './RaspBlock.module.css'
+import { LeassonHeader } from './ui/LeassonHeader'
 
 type DataT = {
     [days: number]: Days
@@ -18,9 +19,9 @@ export const RaspBlock: FC<IProps> = ({ raspData, teacher }) => {
     const renderRasp = useMemo(() => {
         const allDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
         const allLessons = Array.from({ length: 12 }, (_, i) => i + 1);
-
         const scheduleMap = new Map();
-
+        
+        
         Object.entries(raspData).forEach(([key]) => {
             const day = data.getDay(key);
             const lesson = data.getLeason(key);
@@ -34,12 +35,7 @@ export const RaspBlock: FC<IProps> = ({ raspData, teacher }) => {
         return (
             <div className={cls.raspGrid}>
                 {/* Заголовок с номерами уроков */}
-                <div className={cls.raspHeader}>
-                    <div className={cls.dayCell}></div>
-                    {allLessons.map(lesson => (
-                        <div key={lesson} className={cls.lessonHeader}>{lesson}</div>
-                    ))}
-                </div>
+                <LeassonHeader leasonTime={data?.getLeasonTime()} allLessons={allLessons} />
 
                 {/* Сетка расписания */}
                 {allDays.map(day => (
